@@ -1,0 +1,29 @@
+$text-color: #E0D7B4;
+$dark-color: #545447;
+$med-screen : 600px;
+
+header {
+    background-color: $dark-color;
+    max-width: 100%;
+
+li {
+    list-style-type: none;
+    color: $text-color;
+}
+
+a {
+    text-decoration: none;
+    color: $text-color;
+}
+
+h1 {
+    color: $text-color;
+}
+
+.panel {
+    margin-bottom: 30px;
+}
+
+}
+
+

@@ -1,0 +1,19 @@
+@import 'node_modules/foundation-sites/scss/foundation';
+@include foundation-global-styles;
+@include foundation-grid;
+
+@import 'header';
+@import url(https://fonts.googleapis.com/css?family=Alegreya|Open+Sans:300,300italic,700);
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Alegreya", serif;
+  font-weight: 400;
+}
+p,a,li,blockquote {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+}
+
+p {
+    text-align: center;
+}
