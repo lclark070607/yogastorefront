@@ -1,0 +1,314 @@
+<!doctype html>
+<html>
+<head>
+    <title></title>
+
+</head>
+<body>
+    <h1>Shopping Cart<h1>
+
+
+
+<script>
+    let cart = [];
+    //display name, price, count
+    let Item = function(name, price, count) {
+        this.name = name
+        this.price = price
+        this.count = count
+    };
+
+    function addItemToCart(name, price, count) {
+        for (let i in cart) { 
+            if (cart[i].name === name) {          
+                cart[i].count += count; 
+                return; 
+            }
+        }
+        
+        let item = new Item(name, price, count);
+        cart.push(item);
+    }
+
+    function removeItemFromCart(name) {
+       for ( let i in cart) {
+           if (cart[i].name === name) { 
+                 cart[i].count --; 
+                 if (cart[i].count === 0) {
+                    cart.splice(i, 1); 
+                 }
+                break;                      
+           }
+       }
+    }
+
+    function removeItemFromCartAll(name) {
+        for (let i in cart) {
+            if (cart[i].name === name) {
+                cart.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    addItemToCart("Apple", 1.22, 1);
+    addItemToCart("Pear", 1.72, 3);
+    addItemToCart("Apple", 1.22, 1); 
+    addItemToCart("Apple", 1.22, 3);
+    addItemToCart("Banana", 1.00, 1);
+    addItemToCart("Car", 34.00, 1);
+    addItemToCart("Plush Toy", 5.82, 1); 
+    addItemToCart("Sticky Notes", 4.00, 3);
+
+    console.log(cart.length);
+    console.log(cart);
+
+    removeItemFromCartAll("Car");
+
+    console.log(cart.length);
+    console.log(cart);
+
+    function clearCart() {
+        cart = [];
+    }
+    // clearCart();
+    // console.log(cart);
+
+    function countCart() {
+        let totalCount = 0;  //start with value of zero outside the loop
+        for (let i in cart) {
+            totalCount += cart[i].count;//take the count of a particular item and add it to the total count
+        }
+        return totalCount;
+    }
+
+    console.log( countCart() );
+
+    function totalCostCart() {
+        let totalCost = 0;
+        for (let i in cart) {
+            totalCost += cart[i].price //get the price of every item in the cart and add them up
+        }
+        return totalCost;
+    }
+    console.log( totalCostCart() );
+    
+   
+        </script>
+
+        </body>
+
+</html>
+
+<!--10th Part of Lecture removeItemFromCartAll-->
+ <!--9th Part of Lecture
+function removeItemFromCart(name) {
+       for ( let i in cart) {
+           if (cart[i].name === name) {//if we find one that matches then do code in this codeblock, 
+                 cart[i].count --; //long way: cart[i].count = cart[i].count - 1
+                 if (cart[i] === 0) {
+                    cart.splice(i, 1); //splice at position i and remove item from cart
+
+                 }
+                break;                       //== info:  "3" == 3, double = would see this as true, doesn't care about string vs value
+                                        //=== would evaluate "3" === 3 as false
+           }
+       } //search through the array for an item that matches, pass the name to the function and loop
+    }
+    
+    console.log(cart[0].count);
+    removeItemFromCart("Apple");
+    removeItemFromCart("Apple");
+    removeItemFromCart("Apple");
+    removeItemFromCart("Apple");
+    removeItemFromCart("Apple");
+    removeItemFromCart("Apple");
+    removeItemFromCart("Apple"); //this is a problem, takes us negative
+    console.log(cart[0].count);
+// -->
+
+<!--Eight Part of Lecture - Shopping Cart Functions
+// functions allow us to store code for later use and reuse
+// when you name functions choose words that describe what the function is doing/action words
+
+// 1. What does our shopping cart need to do?  
+// Add items to the cart - function:  addItemToCart(name, price, count)
+// Remove items to cart:  removeItemfromCart(name) //removes one item
+// Remove all items:  removeItemFromCartAll(name) //removes all of item name
+// Clear everything from cart:  clearCart();  
+// Count the cart:  countCart(); totals the counts for each item, return a value
+// Total of everything in cart: totalCart(); return a value/total cost to us
+// List items in cart:  listCart(); return an array of all items
+// save the cart:  saveCart(); save the cart 
+
+function addItemToCart(name, price, count) {
+        for (let i in cart) { //loop through the cart for item with same name, loop through each item in cart
+            if (cart[i].name === name) { //each item in the cart equals the name passed through
+                //cart[i].count ++;   //if they match then we'll increase the count of each item         
+                cart[i].count += count //plus count, add count to whatever the value of count property is of cart[i].count
+                return;  //says quit looping right there, ends our function
+            }
+
+        }
+        
+        let item = new Item(name, price, count);
+        cart.push(item);
+    }
+    //we need to loop through the array and match name against each item in the array
+
+    addItemToCart("Apple", 1.22, 1);
+    addItemToCart("Pear", 1.72, 3);
+    addItemToCart("Apple", 1.22, 1); //this is a problem, console sees three items, doesn't add-->
+    <!--//what we need to do is when adding same name item, up the count
+    addItemToCart("Apple", 1.22, 3);
+    console.log(cart);
+    console.log( cart[0]); //get at first item in the array
+   console.log( cart[0].name);
+   console.log( cart[0].price);
+   console.log( cart[0].count);-->
+
+
+<!--Seventh Part of Lecture
+// 1. How do we want to structure our shopping cart?
+// let cart = [];
+//     //display name, price, count
+//     let Item = function(name, price, count) {
+//         this.name = name
+//         this.price = price
+//         this.count = count
+//     };
+//     //a factory that makes item objects for us
+//     //This is a function literal same as saying function Item() {}
+//     //this .. creating a system that will generate an object
+//     //use uppercase letter when you create a class or you name a type of object
+
+//     let brush = new Item("Brush", 1.99, 1); //{name: "Brush", cost:1.99, count:1}
+//     console.log(brush);
+
+//     //brush is an instance/variable of the Item class
+
+//     cart.push(new Item("Apple", 2.13, 1));
+//     cart.push(brush);
+
+//     console.log(cart);-->
+
+<!--//Sixth Part of Lecture - Shopping Cart Scopes
+
+// //scope determines where a variable or a value is visible. Scope determines
+// //where you can see a value in your program.
+    
+//     // EXAMPLE 1
+//     //let global = "Hello";  //this variable is global, not really best practice
+
+//     // function myFunction() {
+//     //     console.log("Global:" + global);
+//     // }
+//         // EXAMPLE 2
+
+//         let global = 10;
+//         function myFunction () {
+//             let global = "Hello"    //this variable is within a code block, if
+//             console.log("Global:" + global);    //variable is outside of code block
+//                                         //then its scope is entire program.
+//         }
+//          //console.log("Global:" + global); //this results in error
+
+//         myFunction();
+//         console.log("Global:" + global);-->
+
+
+<!--
+//Fifth Part of Lecture - Shopping Cart Functions
+//EXAMPLE 1 What is a function?  A function is a block of code you can reuse.  A function
+//can also be reused to generate an object.
+//EXAMPLE 2 What else can functions do?  Functions can take parameters.
+//EXAMPLE 3 What else can functions do?  Functions can return a value.  Functions
+//can pass values out.
+    //EXAMPLE 1
+    // function myfunction() {
+    //     console.log("hello world");
+    // }
+    // //call/invoke the function
+    // myfunction();
+
+    //EXAMPLE 2
+
+//    function myfunction(message, count) {
+//        for (let i = 0; i < count; i++) {
+//            console.log(message);
+//        }
+//    }
+
+//    myfunction("Hello World", 1);
+//    myfunction("Keeping it real.", 5);
+//    myfunction("BBB", 3);
+
+    //EXAMPLE 3
+
+    // function square(num) {
+    //     return num * num; //whenever your function returns a value the function is over,
+                            //anything written after is ignored
+    // }
+    // console.log( square(3) ); //have to console log to print the value
+
+//Fourth Part of Lecture
+    //array is empty because shopping cart is empty at the start
+    // let cart = [];
+    // let item = {name:"Apple", cost: 1.99, count: 3};
+
+    // cart.push(item);
+    // console.log(cart);
+    // console.log(cart[0]);
+    // console.log(cart[0].name);
+    // console.log(cart[0].cost);
+    // console.log(cart[1]); //we are asking for an item out of range, not in the array
+    // console.log(cart[1].name); can't ask for properties of an undefined 
+    // console.log(cart[0].price); //with an object if we ask for key value that doesn't exist,
+    // we get undefined
+
+//Third Part of Lecture
+// Object is an organized collection.  
+// Array you can get at by index/0, 1, 2, 3 etc. [] 
+// Object you can get at each item by its name.
+//When we create shopping cart:  we'll use an array to hold items in the cart,
+//But every item will be represented as an object with descriptive properties.
+    // let obj = {name:"Apple", cost:1.99, count: 2};
+    // console.log(obj);
+    // console.log(obj.name);
+//How do you get all the items/property names out of, values for each property inside the object?
+
+//Use a for loop (not the one that counts) do a for in loop, obj is the object we want to iterate through.
+//Let's look once through each property or key value in this object right here.
+    // for (let key in obj) {
+    //     console.log(key + " " +obj[key]);
+
+    // }
+
+    // let array = ['a', 'b', 'c'];
+
+    // for (let key in array) {
+    //     console.log(key + " " +array[key]);
+    // }
+
+// Second Part of Lecture
+    // let array = ["Apple", "Brush", "Carrot"];
+
+    // array.push('Ducks');
+    // how to use for loop to get all the items in the array
+    //for loop says:  1. we are going to repeat and (initializer) we are going to count with the variable
+    //i and its going to start with a beginning value of zero, 2.(condition for the loop, if this is true then we'll loop again)
+    //3. (increment) add 1 to i if the block of code happens and the condition is still true
+    
+    // for (let i = 0; i < array.length; i++) {
+    //     console.log(array[i]);
+    // }
+
+// First Part of Lecture - Initial Checks of cart 
+    // console.log(array.length);
+    // array.push("Dice");
+    // console.log(array.length);
+    
+    // console.log(array);
+    // console.log( array[0]);
+-->
+

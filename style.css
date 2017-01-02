@@ -1366,6 +1366,9 @@ button {
       .column-block > :last-child {
         margin-bottom: 0; } }
 
+.top-bar {
+  background-color: #545447; }
+
 header {
   background-color: #545447;
   max-width: 100%; }

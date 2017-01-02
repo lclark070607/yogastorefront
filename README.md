@@ -18,3 +18,6 @@ https://coderwall.com/p/u_ngaa/fallback-svg-to-png-in-img-element
 
 Learned about SVG here:  https://css-tricks.com/scale-svg/ and https://css-tricks.com/using-svg/
 
+Purchased a course on Foundation 6 & Sass at Udemy...went through all 26 hours
+
+Went through a Javascript Shopping Cart Tutorial
