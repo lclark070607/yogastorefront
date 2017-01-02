@@ -28,6 +28,7 @@
         
         let item = new Item(name, price, count);
         cart.push(item);
+        saveCart();
     }
 
     function removeItemFromCart(name) {
@@ -40,6 +41,7 @@
                 break;                      
            }
        }
+       saveCart();
     }
 
     function removeItemFromCartAll(name) {
@@ -49,30 +51,13 @@
                 break;
             }
         }
+        saveCart();
     }
-
-    addItemToCart("Apple", 1.22, 1);
-    addItemToCart("Pear", 1.72, 3);
-    addItemToCart("Apple", 1.22, 1); 
-    addItemToCart("Apple", 1.22, 3);
-    addItemToCart("Banana", 1.00, 1);
-    addItemToCart("Car", 34.00, 1);
-    addItemToCart("Plush Toy", 5.82, 1); 
-    addItemToCart("Sticky Notes", 4.00, 3);
-
-    console.log(cart.length);
-    console.log(cart);
-
-    removeItemFromCartAll("Car");
-
-    console.log(cart.length);
-    console.log(cart);
 
     function clearCart() {
         cart = [];
+        saveCart();
     }
-    // clearCart();
-    // console.log(cart);
 
     function countCart() {
         let totalCount = 0;  //start with value of zero outside the loop
@@ -93,6 +78,36 @@
     }
     console.log( totalCostCart() );
     
+    function listCart() {
+        let cartCopy = [];
+        for (let i in cart) { //loop through every item in the array
+            let item = cart[i];
+            let itemCopy = {};
+            for (let p in item) {   //loop through every property in the object
+                itemCopy[p] = item[p]; 
+            }
+            cartCopy.push(itemCopy); 
+        }
+        return cartCopy;
+    }
+    
+    function saveCart() {
+        localStorage.setItem("shoppingCart", JSON.stringify(cart)); //convert to string describing the array&objects
+                                                    
+    }
+
+    function loadCart() {
+        //cart = localStorage.getItem("shoppingCart");//convert from JSON object to array/object
+        cart = JSON.parse(localStorage.getItem("shoppingCart"));
+    }
+    
+    loadCart();
+
+    let array = listCart();
+    console.log(array);    
+
+
+    
    
         </script>
 
@@ -100,12 +115,76 @@
 
 </html>
 
+<!--12th Part of Lecture save/load function
+What do these do?  Save will save cart info to local storage, Load will load cart from local storage
+1. Retrieve cart if you leave the page and come back
+2. Pass the cart around between different pages and display it
+With Javascript the code is lost with each new page.
+
+Local Storage writes information to the browser and stores it in the browser
+localStorage.setItem("username", "Joe"); //under applications tab you can find Local Storage and open it up to see
+
+EXAMPLE:
+ function saveCart() {
+        //localStorage.setItem("shoppingCart", cart); //you're going to name the item, cart is too complex for local storage
+        localStorage.setItem("shoppingCart", JSON.stringify(cart)); //convert to string describing the array&objects,
+                                                    //use JSON object, JSON is a way of writing Javascript objects & notations as a string
+                                                    //good way to pass around information, can always store a string
+    }
+We want to save the cart every time we edit the cart.==>put saveCart function throughout!
+
+Remove all calls for testing
+
+
+-->
+
+<!--11th Part of Lecture
+by not writing code that inserts into the HTML we can use the code for future projects
+make the cart so it's portable, move it from project to project, project is decoupled from HTML-->
+
+<!--function listCart() {
+        return cart; //problem:  when you pass a value that is an array or object, 
+                        //in Javascript your not sending a copy of that value, instead
+                        //you're sending a reference to the original value.
+    }
+    PROBLEM 1
+    let a = ["A", "B", "C"];//computer keeps this in memory
+    **use instead** let b = a.slice(); //it's going to create a copy of the array, if you don't have parameters you slice the whole array
+   let b = a; //gives same address and memory
+    b.push("D");
+    console.log(a);  //prints out same as b
+    console.log(b);  //prints out same as a
+    
+    PROBLEM 2
+    let a = {age: 22, name: "joe"};
+    let b = a;
+    b.name = "cyndi";  //just setting a new value as a pointer to the original object
+    console.log(a);
+    console.log(b);
+    
+    FINAL Conclusion
+    function listCart() {
+        let cartCopy = [];
+        for (let i in cart) { //loop through every item in the array
+            let item = cart[i];
+            let itemCopy = {};
+            for (let p in item) {     //this for loop can go through every item in the array and we can loop through every property in an object
+                itemCopy[p] = item[p]; //make it a property in itemCopy and give it the same value
+            }
+            cartCopy.push(itemCopy); //cartCopy.push to add the itemCopy to the cartCopy
+        }
+        return cartCopy;
+    }
+    console.log( listCart() );
+    -->
+
+    
 <!--10th Part of Lecture removeItemFromCartAll-->
  <!--9th Part of Lecture
 function removeItemFromCart(name) {
        for ( let i in cart) {
            if (cart[i].name === name) {//if we find one that matches then do code in this codeblock, 
-                 cart[i].count --; //long way: cart[i].count = cart[i].count - 1
+                 cart[i].count minusminus; //long way: cart[i].count = cart[i].count - 1
                  if (cart[i] === 0) {
                     cart.splice(i, 1); //splice at position i and remove item from cart
 
@@ -125,6 +204,23 @@ function removeItemFromCart(name) {
     removeItemFromCart("Apple");
     removeItemFromCart("Apple"); //this is a problem, takes us negative
     console.log(cart[0].count);
+
+     addItemToCart("Apple", 1.22, 1);
+    addItemToCart("Pear", 1.72, 3);
+    addItemToCart("Apple", 1.22, 1); 
+    addItemToCart("Apple", 1.22, 3);
+    addItemToCart("Banana", 1.00, 1);
+    addItemToCart("Car", 34.00, 1);
+    addItemToCart("Plush Toy", 5.82, 1); 
+    addItemToCart("Sticky Notes", 4.00, 3);
+
+    console.log(cart.length);
+    console.log(cart);
+
+    removeItemFromCartAll("Car");
+
+    console.log(cart.length);
+    console.log(cart);
 // -->
 
 <!--Eight Part of Lecture - Shopping Cart Functions
