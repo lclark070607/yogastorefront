@@ -1,12 +1,15 @@
 <!doctype html>
 <html>
 <head>
-    <title></title>
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <title>My First Shopping Cart</title>
+    <script src="app.js"></script>
+    <script src="jquery-3.1.1.js"></script>
+    <script src="script.js"></script>
+    <script src="js/foundation/foundation.js"></script>
+    <script src="js/foundation/foundation.topbar.js"></script>
 </head>
 <body>
-    <h1>Shopping Cart<h1>
+    <h1>My First Shopping Cart<h1>
         <div>
            <!--list of items that you can buy-->
             <ul>
@@ -26,133 +29,47 @@
                 </ul>
             </div>
 
-
-
-<script>
-    
-    $(".add-to-cart").click(function(event) {
-        event.preventDefault(); //we don't want the button to go to default mechanism
-        let name = $(this).attr("data-name"); //$this represents the link that you clicked on, attr lets us access any of the attributes
-        let price = Number($(this).attr("data-price"));//Number function helps us return a value vs a string
-
-        addItemToCart(name, price, 1);
-        displayCart();
-    });
-
-    function displayCart() {
-        let cartArray = listCart();
-        let output = ""; //empty string
-        for (let i in cartArray) {
-            output += "<li>"+cartArray[i].name +" "+cartArray[i].count+"</li>" //append, add to the end of
-        }
-        $("#show-cart").html(output); //overriding everything that's inside this element.
-    }
-
-    //******************************************************************
-    //Shopping Cart Functions
-    let cart = [];
-    //display name, price, count
-    let Item = function(name, price, count) {
-        this.name = name
-        this.price = price
-        this.count = count
-    };
-
-    function addItemToCart(name, price, count) {
-        for (let i in cart) { 
-            if (cart[i].name === name) {          
-                cart[i].count += count; 
-                return; 
-            }
-        }
-        
-        let item = new Item(name, price, count);
-        cart.push(item);
-        saveCart();
-    }
-
-    function removeItemFromCart(name) {
-       for ( let i in cart) {
-           if (cart[i].name === name) { 
-                 cart[i].count --; 
-                 if (cart[i].count === 0) {
-                    cart.splice(i, 1); 
-                 }
-                break;                      
-           }
-       }
-       saveCart();
-    }
-
-    function removeItemFromCartAll(name) {
-        for (let i in cart) {
-            if (cart[i].name === name) {
-                cart.splice(i, 1);
-                break;
-            }
-        }
-        saveCart();
-    }
-
-    function clearCart() {
-        cart = [];
-        saveCart();
-    }
-
-    function countCart() {
-        let totalCount = 0;  //start with value of zero outside the loop
-        for (let i in cart) {
-            totalCount += cart[i].count;//take the count of a particular item and add it to the total count
-        }
-        return totalCount;
-    }
-
-    // console.log( countCart() );
-
-    function totalCostCart() {
-        let totalCost = 0;
-        for (let i in cart) {
-            totalCost += cart[i].price //get the price of every item in the cart and add them up
-        }
-        return totalCost;
-    }
-    // console.log( totalCostCart() );
-    
-    function listCart() {
-        let cartCopy = [];
-        console.log("Listing cart");
-        console.log(cart);
-        for (let i in cart) { 
-            console.log(i);//loop through every item in the array
-            let item = cart[i];
-            let itemCopy = {};
-            for (let p in item) {   //loop through every property in the object
-                itemCopy[p] = item[p]; 
-            }
-            cartCopy.push(itemCopy); 
-        }
-        return cartCopy;
-    };
-    
-    function saveCart() {
-        localStorage.setItem("shoppingCart", JSON.stringify(cart)); //convert to string describing the array&objects                                               
-    }
-
-    function loadCart() {
-        //cart = localStorage.getItem("shoppingCart");//convert from JSON object to array/object
-        cart = JSON.parse(localStorage.getItem("shoppingCart"));
-        if(cart === null) {
-            cart = [];
-        }
-    }
-    
-    loadCart();    
-
-        </script>
-
+        <script src="jquery-3.1.1.js"></script>
+        <script src="script.js"></script>
         </body>
 
 </html>
+
+<!--<!doctype html>
+<html>
+<head>
+    <title>Yoga Store</title>
+    <script src="jquery-3.1.1.js"></script>
+    <script src="script.js"></script>
+    <script src="js/foundation/foundation.js"></script>
+    <script src="js/foundation/foundation.topbar.js"></script> 
+    <script src="app.js"></script>  
+</head>
+
+<body>
+    <h1>Shopping Cart<h1>
+        <div>
+           <!list of items that you can buy-->
+            <!--<ul>
+                <!data-name is what actually passes through the function-->
+                <!--<li><a class="add-to-cart" href="#" data-name="Apple" data-price="1.22">Apple $1.22</a></li> 
+                <li><a class="add-to-cart" href="#" data-name="Banana" data-price="1.33">Banana $1.33</a></li> 
+                <li><a class="add-to-cart" href="#" data-name="Shoe" data-price="1.22">Shoe $22.33</a></li> 
+                <li><a class="add-to-cart" href="#" data-name="Frisbee" data-price="5.22">Frisbee $5.22</a></li> 
+            </ul>-->
+            
+            <!--<button id="clear-cart">Clear Cart</button>
+        </div>
+
+        <div>
+            <ul id="show-cart">
+                <!-->
+                <!--</ul>
+            </div>
+
+        </body>-->
+
+<!--</html>-->
 <!--Shopping Cart Display Lecture
 
 -->
